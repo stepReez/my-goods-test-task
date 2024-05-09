@@ -21,10 +21,8 @@ public class ProductRepositoryImpl implements ProductRepository {
         if (product.getId() == null) {
             counter++;
             product.setId(counter);
-        } else if (!products.containsKey(product.getId())) {
-            throw new BadRequestException("A non-existent product cannot be changed");
         }
-        products.put(counter, product);
+        products.put(product.getId(), product);
         return products.get(counter);
     }
 

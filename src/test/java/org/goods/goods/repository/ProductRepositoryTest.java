@@ -61,8 +61,11 @@ class ProductRepositoryTest {
 
     @Test
     void saveWithIdProductDontExistTest() {
-        product.setId(111L);
-        Assertions.assertThrows(BadRequestException.class, () -> productRepository.save(product));
+        long id = 111;
+        product.setId(id);
+        productRepository.save(product);
+        Product updatedProduct = productRepository.findById(id);
+        test(updatedProduct);
     }
 
     @Test
