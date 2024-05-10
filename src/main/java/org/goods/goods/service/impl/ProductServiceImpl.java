@@ -83,7 +83,11 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (type == SortType.DESC) {
-            Collections.reverse(products);
+            List<Product> reverseList = new ArrayList<>();
+            for(int i = products.size() - 1; i >= 0; i -= 1) {
+                reverseList.add(products.get(i));
+            }
+            products = reverseList;
         }
 
         return products;

@@ -17,8 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -161,5 +160,25 @@ class ProductControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
+    }
+
+    @Test
+    void searchProductTest() throws Exception {
+        when(productService.searchProducts(any(), any(), any(), anyBoolean(), any(), any(), anyInt(), anyInt()))
+                .thenReturn(List.of(product));
+
+        when(productDtoMapper.outComingMap(any()))
+                .thenReturn(productOutcomingDto);
+
+        mvc.perform(get("/product/search")
+                        .characterEncoding(StandardCharsets.UTF_8)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id", is(productOutcomingDto.getId()), Long.class))
+                .andExpect(jsonPath("$[0].name", is(productOutcomingDto.getName())))
+                .andExpect(jsonPath("$[0].description", is(productOutcomingDto.getDescription())))
+                .andExpect(jsonPath("$[0].cost", is(productOutcomingDto.getCost()), Double.class))
+                .andExpect(jsonPath("$[0].inStock", is(productOutcomingDto.isInStock())));
     }
 }
