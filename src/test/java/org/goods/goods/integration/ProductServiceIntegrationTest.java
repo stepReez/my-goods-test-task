@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.goods.goods.exception.NotFoundException;
 import org.goods.goods.model.Product;
 import org.goods.goods.service.impl.ProductServiceImpl;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 

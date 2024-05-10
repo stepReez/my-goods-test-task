@@ -6,8 +6,14 @@ import org.goods.goods.exception.NotFoundException;
 import org.goods.goods.model.Product;
 import org.goods.goods.repository.ProductRepository;
 import org.goods.goods.service.ProductService;
+import org.goods.goods.util.CostComparison;
+import org.goods.goods.util.ProductSort;
+import org.goods.goods.util.SortType;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -50,6 +56,36 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findAllProducts() {
         List<Product> products = productRepository.findAll();
         log.info("All products found");
+        return products;
+    }
+
+    @Override
+    public List<Product> searchProducts(String query, Double cost, CostComparison costComparison, boolean isInStock,
+                                        ProductSort sort, SortType type, int from, int size) {
+        List<Product> products = new ArrayList<>();
+
+        if (sort == ProductSort.NAME) {
+            products = productRepository.findProductsSortByName(query, PageRequest.of(from / size, size));
+        } else if (sort == ProductSort.COST) {
+            products = productRepository.findProductsSortByCost(query, PageRequest.of(from / size, size));
+        }
+
+        if (cost != null && costComparison == CostComparison.EQUALS) {
+            products = products.stream().filter(x -> x.getCost() == cost).toList();
+        } else if (cost != null && costComparison == CostComparison.MORE) {
+            products = products.stream().filter(x -> x.getCost() >= cost).toList();
+        } else if (cost != null && costComparison == CostComparison.LESS) {
+            products = products.stream().filter(x -> x.getCost() <= cost).toList();
+        }
+
+        if (isInStock) {
+            products = products.stream().filter(Product::isInStock).toList();
+        }
+
+        if (type == SortType.DESC) {
+            Collections.reverse(products);
+        }
+
         return products;
     }
 }
