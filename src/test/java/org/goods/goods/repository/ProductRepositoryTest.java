@@ -1,29 +1,47 @@
 package org.goods.goods.repository;
 
-import org.goods.goods.exception.BadRequestException;
-import org.goods.goods.exception.NotFoundException;
 import org.goods.goods.model.Product;
-import org.goods.goods.repository.impl.ProductRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.List;
 
+@DataJpaTest
 class ProductRepositoryTest {
-    ProductRepository productRepository;
+    @Autowired
+    private TestEntityManager em;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     private Product product;
 
+    private Product productCopy;
+
     @BeforeEach
     void beforeEach() {
-        productRepository = new ProductRepositoryImpl();
         product = Product.builder()
                 .name("name")
                 .description("description")
                 .cost(135.1)
                 .inStock(true)
                 .build();
+
+        productCopy = Product.builder()
+                .name("name")
+                .description("description")
+                .cost(135.1)
+                .inStock(true)
+                .build();
+    }
+
+    @Test
+    void contextLoads() {
+        Assertions.assertNotNull(em);
     }
 
     @Test
@@ -39,13 +57,12 @@ class ProductRepositoryTest {
         Product savedProduct1 = productRepository.save(product);
         long id1 = savedProduct1.getId();
 
-        product.setId(null);
-        Product savedProduct2 = productRepository.save(product);
+        Product savedProduct2 = productRepository.save(productCopy);
         long id2 = savedProduct2.getId();
 
         Assertions.assertNotEquals(id1, id2);
-        test(productRepository.findById(id1));
-        test(productRepository.findById(id2));
+        test(productRepository.findById(id1).get());
+        test(productRepository.findById(id2).get());
     }
 
     @Test
@@ -60,38 +77,19 @@ class ProductRepositoryTest {
     }
 
     @Test
-    void saveWithIdProductDontExistTest() {
-        long id = 111;
-        product.setId(id);
-        productRepository.save(product);
-        Product updatedProduct = productRepository.findById(id);
-        test(updatedProduct);
-    }
-
-    @Test
     void findProductByIdTest() {
         Product savedProduct = productRepository.save(product);
         long id = savedProduct.getId();
 
-        Product foundedProduct = productRepository.findById(id);
+        Product foundedProduct = productRepository.findById(id).get();
         test(foundedProduct);
     }
 
     @Test
-    void findProductByIdProductDontExistTest() {
-        Assertions.assertThrows(NotFoundException.class, () -> productRepository.findById(111));
-    }
-
-    @Test
-    void deleteByIdProductDontExistTest() {
-        Assertions.assertThrows(BadRequestException.class, () -> productRepository.deleteById(111));
-    }
-
-    @Test
     void findAllTest() {
+        System.out.println(product.getId());
         productRepository.save(product);
-        product.setId(null);
-        productRepository.save(product);
+        productRepository.save(productCopy);
 
         List<Product> products = productRepository.findAll();
         Assertions.assertEquals(2, products.size());

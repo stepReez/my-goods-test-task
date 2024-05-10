@@ -2,6 +2,7 @@ package org.goods.goods.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.goods.goods.exception.NotFoundException;
 import org.goods.goods.model.Product;
 import org.goods.goods.repository.ProductRepository;
 import org.goods.goods.service.ProductService;
@@ -33,7 +34,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findProduct(long id) {
-        Product product = productRepository.findById(id);
+        Product product = productRepository.findById(id).orElseThrow(() ->
+                new NotFoundException(String.format("Product with id = %d not found", id)));
         log.info("Product with id = {} found", id);
         return product;
     }

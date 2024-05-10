@@ -1,15 +1,18 @@
 package org.goods.goods.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Setter
 @Getter
+@Entity
+@Table(name = "goods")
 public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
@@ -18,5 +21,6 @@ public class Product {
 
     private double cost;
 
+    @Column(name = "in_stock")
     private boolean inStock;
 }

@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.List;
 
 @SpringBootTest(
+        properties = "db.name=test",
         webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 class ProductServiceIntegrationTest {
@@ -75,6 +76,11 @@ class ProductServiceIntegrationTest {
         productService.createProduct(product);
         List<Product> products = productService.findAllProducts();
         Assertions.assertTrue(!products.isEmpty());
+    }
+
+    @Test
+    void findNotExistentProductTest() {
+        Assertions.assertThrows(NotFoundException.class, () -> productService.findProduct(999L));
     }
 
     private void test(Product testProduct) {

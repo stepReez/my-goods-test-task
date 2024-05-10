@@ -18,6 +18,4 @@ public class ApiError {
     private String message;
 
     private HttpStatus status;
-
-    private String timestamp;
 }
