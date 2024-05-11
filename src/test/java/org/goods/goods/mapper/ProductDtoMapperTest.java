@@ -15,7 +15,7 @@ class ProductDtoMapperTest {
              .name("name")
              .description("description")
              .cost(135.1)
-             .inStock(true)
+             .inStock(10)
              .build();
 
      private final Product product = Product.builder()
@@ -23,7 +23,7 @@ class ProductDtoMapperTest {
              .name("name")
              .description("description")
              .cost(135.1)
-             .inStock(true)
+             .inStock(10)
              .build();
 
      @Test
@@ -33,7 +33,7 @@ class ProductDtoMapperTest {
           Assertions.assertEquals(productIncomingDto.getName(), mappedProduct.getName());
           Assertions.assertEquals(productIncomingDto.getDescription(), mappedProduct.getDescription());
           Assertions.assertEquals(productIncomingDto.getCost(), mappedProduct.getCost());
-          Assertions.assertEquals(productIncomingDto.isInStock(), mappedProduct.isInStock());
+          Assertions.assertEquals(productIncomingDto.getInStock(), mappedProduct.getInStock());
      }
 
      @Test
@@ -44,6 +44,6 @@ class ProductDtoMapperTest {
           Assertions.assertEquals(product.getName(), productOutcomingDto.getName());
           Assertions.assertEquals(product.getDescription(), productOutcomingDto.getDescription());
           Assertions.assertEquals(product.getCost(), productOutcomingDto.getCost());
-          Assertions.assertEquals(product.isInStock(), productOutcomingDto.isInStock());
+          Assertions.assertEquals(product.getInStock(), productOutcomingDto.getInStock());
      }
 }

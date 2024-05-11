@@ -15,7 +15,7 @@ import lombok.Setter;
 public class ProductIncomingDto {
     @NotBlank
     @NotNull
-    @Size(max = 225)
+    @Size(max = 255)
     private String name;
 
     @Size(max = 4096)
@@ -24,5 +24,5 @@ public class ProductIncomingDto {
     @PositiveOrZero
     private double cost = 0;
 
-    private boolean inStock;
+    private int inStock;
 }

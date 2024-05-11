@@ -34,7 +34,7 @@ class ProductServiceIntegrationTest {
                 .name("name")
                 .description("description")
                 .cost(135.1)
-                .inStock(true)
+                .inStock(10)
                 .build();
 
         createdProduct = productService.createProduct(product);
@@ -91,7 +91,7 @@ class ProductServiceIntegrationTest {
                 .name("Another")
                 .description("description")
                 .cost(135.1)
-                .inStock(true)
+                .inStock(10)
                 .build())
                 .getId();
 
@@ -111,7 +111,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(138.1)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -131,7 +131,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(200.1)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -151,7 +151,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(50.0)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -171,7 +171,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(200.1)
-                        .inStock(false)
+                        .inStock(0)
                         .build())
                 .getId();
 
@@ -191,7 +191,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(200.1)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -208,7 +208,7 @@ class ProductServiceIntegrationTest {
         Assertions.assertEquals("Another", productAnother.getName());
         Assertions.assertEquals("description", productAnother.getDescription());
         Assertions.assertEquals(200.1, productAnother.getCost());
-        Assertions.assertTrue(productAnother.isInStock());
+        Assertions.assertEquals(10, productAnother.getInStock());
 
         test(productName);
     }
@@ -219,7 +219,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(200.1)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -236,7 +236,7 @@ class ProductServiceIntegrationTest {
         Assertions.assertEquals("Another", productAnother.getName());
         Assertions.assertEquals("description", productAnother.getDescription());
         Assertions.assertEquals(200.1, productAnother.getCost());
-        Assertions.assertTrue(productAnother.isInStock());
+        Assertions.assertEquals(10, productAnother.getInStock());
 
         test(productName);
     }
@@ -247,7 +247,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(200.1)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -264,7 +264,7 @@ class ProductServiceIntegrationTest {
         Assertions.assertEquals("Another", productAnother.getName());
         Assertions.assertEquals("description", productAnother.getDescription());
         Assertions.assertEquals(200.1, productAnother.getCost());
-        Assertions.assertTrue(productAnother.isInStock());
+        Assertions.assertEquals(10, productAnother.getInStock());
 
         test(productName);
     }
@@ -275,7 +275,7 @@ class ProductServiceIntegrationTest {
                         .name("Another")
                         .description("description")
                         .cost(200.1)
-                        .inStock(true)
+                        .inStock(10)
                         .build())
                 .getId();
 
@@ -292,7 +292,7 @@ class ProductServiceIntegrationTest {
         Assertions.assertEquals("Another", productAnother.getName());
         Assertions.assertEquals("description", productAnother.getDescription());
         Assertions.assertEquals(200.1, productAnother.getCost());
-        Assertions.assertTrue(productAnother.isInStock());
+        Assertions.assertEquals(10, productAnother.getInStock());
 
         test(productName);
     }
@@ -301,6 +301,6 @@ class ProductServiceIntegrationTest {
         Assertions.assertEquals(product.getName(), testProduct.getName());
         Assertions.assertEquals(product.getDescription(), testProduct.getDescription());
         Assertions.assertEquals(product.getCost(), testProduct.getCost());
-        Assertions.assertEquals(product.isInStock(), testProduct.isInStock());
+        Assertions.assertEquals(product.getInStock(), testProduct.getInStock());
     }
 }

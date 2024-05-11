@@ -43,14 +43,14 @@ class ProductControllerTest {
             .name("name")
             .description("description")
             .cost(135.1)
-            .inStock(true)
+            .inStock(10)
             .build();
 
     private final Product product = Product.builder()
             .name("name")
             .description("description")
             .cost(135.1)
-            .inStock(true)
+            .inStock(10)
             .build();
 
     private final ProductOutcomingDto productOutcomingDto = ProductOutcomingDto.builder()
@@ -58,7 +58,7 @@ class ProductControllerTest {
             .name("name")
             .description("description")
             .cost(135.1)
-            .inStock(true)
+            .inStock(10)
             .build();
 
     @Test
@@ -82,7 +82,7 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.name", is(productOutcomingDto.getName())))
                 .andExpect(jsonPath("$.description", is(productOutcomingDto.getDescription())))
                 .andExpect(jsonPath("$.cost", is(productOutcomingDto.getCost()), Double.class))
-                .andExpect(jsonPath("$.inStock", is(productOutcomingDto.isInStock())));
+                .andExpect(jsonPath("$.inStock", is(productOutcomingDto.getInStock())));
     }
 
     @Test
@@ -106,7 +106,7 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.name", is(productOutcomingDto.getName())))
                 .andExpect(jsonPath("$.description", is(productOutcomingDto.getDescription())))
                 .andExpect(jsonPath("$.cost", is(productOutcomingDto.getCost()), Double.class))
-                .andExpect(jsonPath("$.inStock", is(productOutcomingDto.isInStock())));
+                .andExpect(jsonPath("$.inStock", is(productOutcomingDto.getInStock())));
     }
 
     @Test
@@ -126,7 +126,7 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.name", is(productOutcomingDto.getName())))
                 .andExpect(jsonPath("$.description", is(productOutcomingDto.getDescription())))
                 .andExpect(jsonPath("$.cost", is(productOutcomingDto.getCost()), Double.class))
-                .andExpect(jsonPath("$.inStock", is(productOutcomingDto.isInStock())));
+                .andExpect(jsonPath("$.inStock", is(productOutcomingDto.getInStock())));
     }
 
     @Test
@@ -146,7 +146,7 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$[0].name", is(productOutcomingDto.getName())))
                 .andExpect(jsonPath("$[0].description", is(productOutcomingDto.getDescription())))
                 .andExpect(jsonPath("$[0].cost", is(productOutcomingDto.getCost()), Double.class))
-                .andExpect(jsonPath("$[0].inStock", is(productOutcomingDto.isInStock())));
+                .andExpect(jsonPath("$[0].inStock", is(productOutcomingDto.getInStock())));
     }
 
     @Test
@@ -179,6 +179,6 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$[0].name", is(productOutcomingDto.getName())))
                 .andExpect(jsonPath("$[0].description", is(productOutcomingDto.getDescription())))
                 .andExpect(jsonPath("$[0].cost", is(productOutcomingDto.getCost()), Double.class))
-                .andExpect(jsonPath("$[0].inStock", is(productOutcomingDto.isInStock())));
+                .andExpect(jsonPath("$[0].inStock", is(productOutcomingDto.getInStock())));
     }
 }

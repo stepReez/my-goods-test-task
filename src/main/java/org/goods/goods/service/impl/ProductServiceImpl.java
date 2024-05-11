@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -79,7 +78,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (isInStock) {
-            products = products.stream().filter(Product::isInStock).toList();
+            products = products.stream().filter(x -> x.getInStock() > 0).toList();
         }
 
         if (type == SortType.DESC) {

@@ -28,14 +28,14 @@ class ProductRepositoryTest {
                 .name("name")
                 .description("description")
                 .cost(135.1)
-                .inStock(true)
+                .inStock(10)
                 .build();
 
         productCopy = Product.builder()
                 .name("name")
                 .description("description")
                 .cost(135.1)
-                .inStock(true)
+                .inStock(10)
                 .build();
     }
 
@@ -101,6 +101,6 @@ class ProductRepositoryTest {
         Assertions.assertEquals(product.getName(), testProduct.getName());
         Assertions.assertEquals(product.getDescription(), testProduct.getDescription());
         Assertions.assertEquals(product.getCost(), testProduct.getCost());
-        Assertions.assertEquals(product.isInStock(), testProduct.isInStock());
+        Assertions.assertEquals(product.getInStock(), testProduct.getInStock());
     }
 }

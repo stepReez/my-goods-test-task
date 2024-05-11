@@ -18,5 +18,5 @@ public class ProductOutcomingDto {
 
     private double cost;
 
-    private boolean inStock;
+    private int inStock;
 }

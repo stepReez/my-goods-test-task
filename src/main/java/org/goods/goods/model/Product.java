@@ -22,5 +22,5 @@ public class Product {
     private double cost;
 
     @Column(name = "in_stock")
-    private boolean inStock;
+    private int inStock;
 }
