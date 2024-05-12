@@ -11,6 +11,8 @@ import org.goods.goods.repository.ProductRepository;
 import org.goods.goods.service.ProductDeliveryService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -65,5 +67,12 @@ public class ProductDeliveryServiceImpl implements ProductDeliveryService {
     public void deleteDelivery(long id) {
         productDeliveryRepository.deleteById(id);
         log.info("Delivery with id = {} deleted", id);
+    }
+
+    @Override
+    public List<ProductDelivery> getAllDelivery() {
+        List<ProductDelivery> productDeliveries = productDeliveryRepository.findAll();
+        log.info("All deliveries found");
+        return productDeliveries;
     }
 }

@@ -9,6 +9,8 @@ import org.goods.goods.model.ProductDelivery;
 import org.goods.goods.service.ProductDeliveryService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/delivery")
 @RequiredArgsConstructor
@@ -42,5 +44,11 @@ public class ProductDeliveryController {
     @DeleteMapping("/{id}")
     public void deleteDelivery(@PathVariable long id) {
         productDeliveryService.deleteDelivery(id);
+    }
+
+    @GetMapping
+    public List<ProductDeliveryOutcomingDto> getAllDelivery() {
+        List<ProductDelivery> productDeliveries = productDeliveryService.getAllDelivery();
+        return productDeliveries.stream().map(productDeliveryDtoMapper::outcomingMap).toList();
     }
 }

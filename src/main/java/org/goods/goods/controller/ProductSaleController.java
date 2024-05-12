@@ -9,6 +9,8 @@ import org.goods.goods.model.ProductSale;
 import org.goods.goods.service.ProductSaleService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/sale")
 @RequiredArgsConstructor
@@ -19,14 +21,14 @@ public class ProductSaleController {
     private final ProductSaleDtoMapper productSaleDtoMapper;
 
     @PostMapping
-    public ProductSaleOutcomingDto createDelivery(@Valid @RequestBody ProductSaleIncomingDto productSaleIncomingDto) {
+    public ProductSaleOutcomingDto createSale(@Valid @RequestBody ProductSaleIncomingDto productSaleIncomingDto) {
         ProductSale productSale = productSaleDtoMapper.incomingMap(productSaleIncomingDto);
         ProductSale savedSale = productSaleService.createSale(productSale);
         return productSaleDtoMapper.outcomingMap(savedSale);
     }
 
     @PutMapping("/{id}")
-    public ProductSaleOutcomingDto updateDelivery(@Valid @RequestBody ProductSaleIncomingDto productSaleIncomingDto,
+    public ProductSaleOutcomingDto updateSale(@Valid @RequestBody ProductSaleIncomingDto productSaleIncomingDto,
                                                       @PathVariable("id") long id) {
         ProductSale productSale = productSaleDtoMapper.incomingMap(productSaleIncomingDto);
         ProductSale savedSale = productSaleService.updateSale(productSale, id);
@@ -34,13 +36,19 @@ public class ProductSaleController {
     }
 
     @GetMapping("/{id}")
-    public ProductSaleOutcomingDto getDelivery(@PathVariable("id") long id) {
+    public ProductSaleOutcomingDto getSale(@PathVariable("id") long id) {
         ProductSale productSale = productSaleService.getSale(id);
         return productSaleDtoMapper.outcomingMap(productSale);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDelivery(@PathVariable long id) {
+    public void deleteSale(@PathVariable long id) {
         productSaleService.deleteSale(id);
+    }
+
+    @GetMapping
+    public List<ProductSaleOutcomingDto> getAllSales() {
+        List<ProductSale> productSales = productSaleService.getAllSale();
+        return productSales.stream().map(productSaleDtoMapper::outcomingMap).toList();
     }
 }

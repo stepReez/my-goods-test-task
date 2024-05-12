@@ -11,6 +11,8 @@ import org.goods.goods.repository.ProductRepository;
 import org.goods.goods.service.ProductSaleService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -75,5 +77,12 @@ public class ProductSaleServiceImpl implements ProductSaleService {
     public void deleteSale(long id) {
         productSaleRepository.deleteById(id);
         log.info("Sale with id = {} deleted", id);
+    }
+
+    @Override
+    public List<ProductSale> getAllSale() {
+        List<ProductSale> productSales = productSaleRepository.findAll();
+        log.info("All sales found");
+        return productSales;
     }
 }

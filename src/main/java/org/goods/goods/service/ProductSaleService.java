@@ -2,6 +2,8 @@ package org.goods.goods.service;
 
 import org.goods.goods.model.ProductSale;
 
+import java.util.List;
+
 public interface ProductSaleService {
 
     ProductSale createSale(ProductSale productSale);
@@ -11,4 +13,6 @@ public interface ProductSaleService {
     ProductSale getSale(long id);
 
     void deleteSale(long id);
+
+    List<ProductSale> getAllSale();
 }
